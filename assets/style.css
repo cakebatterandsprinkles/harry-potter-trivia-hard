@@ -1,0 +1,29 @@
+body {
+    background-image: url("../assets/images/Hogwarts-Castle-Desktop-Wallpaper.jpg");
+    background-size: 100%;
+    background-repeat: repeat;
+}
+
+.header {
+    background-color: rgba(7, 7, 7, 0.39);
+}
+
+.stopwatch {
+    background-color: rgba(214, 214, 214, 0.507);
+    max-width: 800px;
+    width:100%;
+    margin:auto;
+}
+
+.questionArea {
+    background-color: rgba(214, 214, 214, 0.685);
+    max-width: 800px;
+    width:100%;
+    margin:auto;
+}
+
+h1 {
+    font-family: 'Sacramento', cursive;
+    font-weight:900;
+    text-shadow: 2px 2px 5px #363636;
+}
