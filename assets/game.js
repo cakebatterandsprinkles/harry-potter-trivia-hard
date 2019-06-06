@@ -1,65 +1,65 @@
 var isTimerDisplayed = false;
 var card = $(".questionArea");
-var countStartNumber = 30;
+var counter = 30;
 var intervalId;
 var questions = [{
-        question1: "What is the number of the vault that belongs to Harry at the Gringotts Wizarding Bank?",
-        answers: ["394", "713", "547", "687"],
+        question: "What is the number of the vault that belongs to Harry at the Gringotts Wizarding Bank?",
+        answer: ["394", "713", "547"],
         correctAnswer: "687",
         image: "",
     },
     {
-        question2: "what's your name",
-        answers: ["1", "2", "3"],
-        correctAnswer: "",
+        question: "What was James Potter's position in Quidditch?",
+        answer: ["Beater", "Chaser", "Keeper"],
+        correctAnswer: "Seeker",
         image: "",
     },
     {
-        question3: "what's your name",
-        answers: ["1", "2", "3"],
-        correctAnswer: "",
+        question: "Which of these is a type of Love Potion?",
+        answer: ["Felix Felicis", "Polyjuice Potion", "Veritaserum"],
+        correctAnswer: "Amortentia",
         image: "",
     },
     {
-        question4: "what's your name",
-        answers: ["1", "2", "3"],
-        correctAnswer: "",
+        question: "What class did Neville end up teaching at Hogwarts?",
+        answer: ["Astronomy", "Muggle Studies", "Charms"],
+        correctAnswer: "Herbology",
         image: "",
     },
     {
-        question5: "what's your name",
-        answers: ["1", "2", "3"],
-        correctAnswer: "",
+        question: "Which of these are not one of Hagrid's many pets?",
+        answer: ["Fluffy", "Norberta", "Aragog"],
+        correctAnswer: "Grawp",
         image: "",
     },
     {
-        question6: "what's your name",
-        answers: ["1", "2", "3"],
-        correctAnswer: "",
+        question: "Who was the original bearer of the cloak of invisibility?",
+        answer: ["Harry Potter", "James Potter", "Albus Dumbledore"],
+        correctAnswer: "Ignotus Peverell",
         image: "",
     },
     {
-        question7: "what's your name",
-        answers: ["1", "2", "3"],
-        correctAnswer: "",
+        question: "Which of these was not a horcrux of Lord Voldemort?",
+        answer: ["Nagini", "The diadem of Rowena Ravenclaw", "Tom Riddle's Diary"],
+        correctAnswer: "The sword of Godric Gryffindor",
         image: "",
     },
     {
-        question8: "what's your name",
-        answers: ["1", "2", "3"],
-        correctAnswer: "",
+        question: "What was Dumbledore's sisters name?",
+        answer: ["Rita", "Minerva", "Abella"],
+        correctAnswer: "Ariana",
         image: "",
     },
     {
-        question9: "what's your name",
-        answers: ["1", "2", "3"],
-        correctAnswer: "",
+        question: "Finish This Quote: 'I open at the...'",
+        answer: ["dawn", "light", "end"],
+        correctAnswer: "close",
         image: "",
     },
     {
-        question10: "what's your name",
-        answers: ["1", "2", "3"],
-        correctAnswer: "",
+        question: "After all this time?",
+        answer: ["Yes", "It never stops", "I still care"],
+        correctAnswer: "Always",
         image: "",
     },
 ];
@@ -68,30 +68,42 @@ var game = {
     correct: 0,
     incorrect: 0,
     currentQuestion: 0,
-    counter: countStartNumber,
     countdown: function () {
-        counter--
-        //decrement counter
-        //use jquery to put the counter dynamically into the page
-        //if time is up, run time up function
+        intervalId = setInterval( function() {
+            counter--;
+            $("#counter-number").text(counter);
+            if(counter <= 0) {
+                clearInterval(intervalId);
+                timeUp();
+            }
+        }, 1000);
     },
     loadQuestion: function () {
-        //set timer
-        //timer = setInterval(game.countdown, 1000)
+        for(var i = 0; i < questions.length; i++) {
+            $(".questionArea").append(questions.question[i]);
+            var answer1 = $("<button>").text(questions.question[i].answer[0]);
+            var answer2 = $("<button>").text(questions.question[i].answer[1]);
+            var answer3 = $("<button>").text(questions.question[i].answer[2]);
+            var answer4 = $("<button>").text(questions.question[i].correctAnswer);
+            $(".questionArea").append(answer1, answer2, answer3, answer4);
+        }
+
+
+
         //dynamically add question into card, card.html("<h2>"+ +"</h2>")
         //for loop
         //run through questions
         //dynamically added answer buttons
     },
     nextQuestion: function () {
-        //set counter back to 30
-        //game.counter = countStartNumber
+        counter = 30;
+        game.countdown();
         //use jquery to  change the text in the game counter
         //increment currentQuestion by one
         //call loadQuestion function
     },
     timeUp: function () {
-        //clearInterval(timer)
+        
         //change the text in game counter
         //append correct answer to the card
         //append image
@@ -133,6 +145,8 @@ $(".startButton").on("click", function () {
         $(".timer").prepend('<h2>Time remaining: <span id="counter-number">30</span> seconds</h2>');
         $(".startButton").detach();
         isTimerDisplayed = true;
+        game.countdown();
+        game.loadQuestion();
     }
 })
 
