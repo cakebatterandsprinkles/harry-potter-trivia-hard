@@ -1,6 +1,6 @@
 var isTimerDisplayed = false;
 var card = $(".questionArea");
-var counter = 30;
+var counter = 31;
 var intervalId;
 var questions = [{
         question: "What is the number of the vault that belongs to Harry at the Gringotts Wizarding Bank?",
@@ -103,7 +103,7 @@ var game = {
     },
     nextQuestion: function () {
         game.currentQuestion++;
-        counter = 30;
+        counter = 31;
         game.countdown();
         game.loadQuestion();
         //use jquery to  change the text in the game counter
@@ -159,6 +159,15 @@ var game = {
 
             if (game.currentQuestion === questions.length - 1) {
                 game.result();
+                isTimerDisplayed = false;
+                var startOverButton = $("<button>").text("Start Over?").addClass("btn btn-lg btn-success btn-block startOverButton");
+                $(".questionArea").empty();
+                $(".questionArea").append(startOverButton);
+                $(".startOverButton").on("click", function () {  
+                    game.reset();
+                    game.loadQuestion();
+                    game.countdown();
+                })
             } else {
                 setTimeout(game.nextQuestion, 3000);
             }
@@ -209,10 +218,15 @@ var game = {
         //if no more questions left, show result, else wait for 3 seconds and show the next question
     },
     reset: function () {
+        counter = 31;
         game.correct = 0;
         game.incorrect = 0;
         game.currentQuestion = 0;
-    }
+        isTimerDisplayed = false;
+        $(".timer").empty();
+        $(".timer").prepend('<h2>Time remaining: <span id="counter-number">30</span> seconds</h2>');
+    },
+
 }
 
 $(".startButton").on("click", function () {
@@ -225,7 +239,3 @@ $(".startButton").on("click", function () {
     }
 });
 
-$(".startOverButton").on("click", function () {
-    isTimerDisplayed = false;
-
-});
