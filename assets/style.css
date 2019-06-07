@@ -15,6 +15,17 @@ body {
     margin:auto;
 }
 
+.wrapper {
+    max-width: 800px;
+    width:100%;
+    margin:auto;
+}
+
+.question-image { 
+width: 100%;
+max-width: 100%;    
+}
+
 .questionArea {
     background-color: rgba(214, 214, 214, 0.685);
     max-width: 800px;
